@@ -1,0 +1,147 @@
+Multiple Choice Questions (MCQs)
+Which of the following is true about I2C communication?
+a) It is a half-duplex communication protocol.
+b) It requires separate data and clock lines.
+c) It can support multiple masters and slaves.
+d) All of the above.
+  ans: D
+
+What is the typical data transfer rate of a standard I2C bus?
+a) 100 kbps
+b) 10 Mbps
+c) 400 Mbps
+d) 1 Gbps
+ans:A
+
+In UART communication, what does the parity bit do?
+a) Indicates the start of communication
+b) Ensures data integrity by error checking
+c) Defines the baud rate
+d) Synchronizes the clock signal
+ans: B
+
+Which of the following is a characteristic of SPI communication?
+a) It is a synchronous communication protocol.
+b) It uses start and stop bits for data transmission.
+c) It allows only one slave device to connect.
+d) It does not require a clock signal.
+ans: A
+
+What is the main advantage of using SPI over I2C?
+a) Lower pin count
+b) Faster data transfer speed
+c) Built-in error checking
+d) Multi-master support
+ans:D 
+
+
+What is the primary purpose of using C++ in embedded systems?
+a) To reduce code size
+b) To enable object-oriented programming features
+c) To increase hardware performance
+d) To replace RTOS functionality
+ans: C
+
+
+Which C++ feature is most commonly used for hardware abstraction in embedded systems?
+a) Templates
+b) Classes and Inheritance
+c) Pointers
+d) Lambda functions
+ans: C
+
+
+cpp question:
+
+Constructor and Destructor
+Question:
+Write a class Rectangle that contains:
+
+Private attributes length and width.
+A parameterized constructor to initialize these attributes.
+A destructor to print a message when the object is destroyed.
+Write a member function to calculate and return the area of the rectangle. 
+Demonstrate the functionality by creating an object and calculating its area. 
+.................................................................................................................
+ANS:
+#include<iostream>
+using namespace std;
+class Rectangle{
+private:
+   float length;
+   float  width;
+public:
+Rectangle(float l, float w) : length(l), width(w) {
+   cout << "Rectangle object created with length = " << length << " and width = " << width <<endl;
+    }
+~Rectangle() {
+   cout << "Rectangle object with length = " << length << " and width = " << width << " is destroyed" <<endl;
+    }
+float calArea(){
+return length*width;
+}
+};
+int main(){
+Rectangle  rec(3.0,4.0);
+float area=rec.calArea();
+cout<<"area of the rectangle"<<area<<endl;
+return 0;
+}
+
+..............................................................................................................
+
+Inheritance
+Question:
+Create a base class Employee with:
+
+Attributes: name (string) and id (int).
+A member function display() to print these details.
+Derive a class Manager that has an additional attribute department (string).
+ Override the display() function to include the department in the output. 
+Create objects of both classes and call their respective display() functions.
+
+...............................................................................................................
+ANS:
+
+#include<iostream>
+#include<string>
+using namespace std;
+class Employee{
+private:
+string name;
+int id;
+public:
+Employee(string n, int id):name(n),id(id){}
+virtual void display() {
+        cout << "Employee Name: " << name <<endl;
+        cout << "Employee ID: " << id <<endl;
+    }
+};
+
+class Manager: public employee{
+private:
+string department;
+public:
+    Manager(string n, int id, string dept) : Employee(n, id), department(dept) {}
+void display() override {
+        Employee::display();  
+        cout << "Department: " << department <<endl;
+    }
+};
+
+int main(){
+
+Employee emp("Lakshmi",4227);
+Manager mger("muni",1217,"testing");
+cout<<"employee details<<endl;
+emp.display();
+cout<<endl;
+cout<<"manager details"<<endl;
+mger.display();
+return 0;
+}
+
+..................................................................................................................
+
+
+
