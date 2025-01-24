@@ -1,0 +1,169 @@
+NAME: NIHAL Bambale;
+
+
+Multiple Choice Questions (MCQs)
+Which of the following is true about I2C communication?
+a) It is a half-duplex communication protocol.
+b) It requires separate data and clock lines.
+c) It can support multiple masters and slaves.
+d) All of the above.
+
+ANS) d
+
+What is the typical data transfer rate of a standard I2C bus?
+a) 100 kbps
+b) 10 Mbps
+c) 400 Mbps
+d) 1 Gbps
+
+ANS) a
+
+In UART communication, what does the parity bit do?
+a) Indicates the start of communication
+b) Ensures data integrity by error checking
+c) Defines the baud rate
+d) Synchronizes the clock signal
+
+ANS) b
+
+Which of the following is a characteristic of SPI communication?
+a) It is a synchronous communication protocol.
+b) It uses start and stop bits for data transmission.
+c) It allows only one slave device to connect.
+d) It does not require a clock signal.
+
+ANS) a
+
+What is the main advantage of using SPI over I2C?
+a) Lower pin count
+b) Faster data transfer speed
+c) Built-in error checking
+d) Multi-master support
+
+ANS) a
+
+
+What is the primary purpose of using C++ in embedded systems?
+a) To reduce code size
+b) To enable object-oriented programming features
+c) To increase hardware performance
+d) To replace RTOS functionality
+
+ANS) b
+
+
+Which C++ feature is most commonly used for hardware abstraction in embedded systems?
+a) Templates
+b) Classes and Inheritance
+c) Pointers
+d) Lambda functions
+
+ANS) b
+
+
+cpp question:
+
+Constructor and Destructor
+Question:
+Write a class Rectangle that contains:
+
+Private attributes length and width.
+A parameterized constructor to initialize these attributes.
+A destructor to print a message when the object is destroyed.
+Write a member function to calculate and return the area of the rectangle. 
+Demonstrate the functionality by creating an object and calculating its area. 
+
+#include<bits/stdc++.h>
+using namespace std;
+class Rectangle{
+	private:
+		double length;
+		double width;
+	public:
+		Rectangle(double length, double width){
+			this->length = length;
+			this->width = width;
+		}
+		~Rectangle(){
+			cout<<"Object is Destroyed "<<endl;
+		}
+		
+		double Area(){
+			return len * wid;
+		}
+};
+
+int main(){
+	Rectangle rect(23,56);
+	double area = rect.Area();
+	cout<<area<<endl;
+}	
+
+-------------------------------------------------------
+
+Inheritance
+Question:
+Create a base class Employee with:
+
+Attributes: name (string) and id (int).
+A member function display() to print these details.
+Derive a class Manager that has an additional attribute department (string).
+ Override the display() function to include the department in the output. 
+Create objects of both classes and call their respective display() functions.
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int id;
+
+public:
+    Employee(string name, int id){
+        this->name= name;
+        this->id = id;
+    }
+
+    void display()  {
+        cout << "Employee Name: " << name << endl;
+        cout << "Employee ID: " << id << endl;
+    }
+
+
+};
+
+
+class Manager : public Employee {
+private:
+    string department;
+
+public:
+    Manager(string name, int id, string department) : Employee(name, id) {
+        this->department = department;
+    }
+
+    void display()  {
+        Employee::display(); 
+        cout << "Department: " << department << endl;
+    }
+
+
+};
+
+int main() {
+    Employee emp("Nihal", 111);
+    cout << "Employee :" << endl;
+    emp.display();
+
+    cout << endl;
+
+    Manager mana("Honour", 222, "IT");
+    cout << "Manager :" << endl;
+    mana.display();
+
+   
+    return 0;
+}
+
+
