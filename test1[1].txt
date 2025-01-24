@@ -1,0 +1,162 @@
+Multiple Choice Questions (MCQs)
+Which of the following is true about I2C communication?
+a) It is a half-duplex communication protocol.
+b) It requires separate data and clock lines.
+c) It can support multiple masters and slaves.
+d) All of the above.
+ALL of the above
+
+What is the typical data transfer rate of a standard I2C bus?
+a) 100 kbps
+b) 10 Mbps
+c) 400 Mbps
+d) 1 Gbps
+100kbps
+
+In UART communication, what does the parity bit do?
+a) Indicates the start of communication
+b) Ensures data integrity by error checking
+c) Defines the baud rate
+d) Synchronizes the clock signal
+ensures data integrity by error checking
+
+Which of the following is a characteristic of SPI communication?
+a) It is a synchronous communication protocol.
+b) It uses start and stop bits for data transmission.
+c) It allows only one slave device to connect.
+d) It does not require a clock signal.
+it is a synchronous communication protocal
+
+What is the main advantage of using SPI over I2C?
+a) Lower pin count
+b) Faster data transfer speed
+c) Built-in error checking
+d) Multi-master support
+faster data transfer speed
+
+
+What is the primary purpose of using C++ in embedded systems?
+a) To reduce code size
+b) To enable object-oriented programming features
+c) To increase hardware performance
+d) To replace RTOS functionality
+to enable object oriented programing features
+
+
+Which C++ feature is most commonly used for hardware abstraction in embedded systems?
+a) Templates
+b) Classes and Inheritance
+c) Pointers
+d) Lambda functions
+
+Classes and Inheritance
+
+
+cpp question:
+
+Constructor and Destructor
+Question:
+Write a class Rectangle that contains:
+
+Private attributes length and width.
+A parameterized constructor to initialize these attributes.
+A destructor to print a message when the object is destroyed.
+Write a member function to calculate and return the area of the rectangle. 
+Demonstrate the functionality by creating an object and calculating its area. 
+
+#include <iostream>
+using namespace std;
+class Rectangle{
+private:
+float length;
+float width;
+public:
+Rectangle(float len,float wid)
+{
+length=len;
+width=wid;
+}
+~Rectangle(){
+cout<<"destructor destroyed object"<<endl;
+}
+float Area()  {
+        return length * width;
+    }
+};
+int main()
+{
+Rectangle rec(12.5,3.5);
+cout<<"area"<<rec.Area()<<endl;
+return 0;
+}
+
+
+Inheritance
+Question:
+Create a base class Employee with:
+
+Attributes: name (string) and id (int).
+A member function display() to print these details.
+Derive a class Manager that has an additional attribute department (string).
+ Override the display() function to include the department in the output. 
+Create objects of both classes and call their respective display() functions.
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Employee{
+public:
+string name;
+int id;
+
+Employee(string empname,int empid ){
+name=empname;
+id=empid;
+}
+virtual void display(){
+cout <<"employe name"<<name<<endl;
+cout<<"employe id"<<id<<endl;
+}
+};
+class Manager :public Employee{
+private:
+string department;
+public:
+Manager(string empName, int empId, string dept)
+        : Employee(empName, empId), department(dept) {}
+
+ void display() override {
+        Employee::display(); 
+        cout << "department " << department << endl;
+    }
+};
+int main() {
+
+    Employee emp("shashank", 101);
+    cout << "employee detail" << endl;
+    emp.display();
+    cout << endl;
+
+  
+    Manager mgr("Sachin", 102, "engineer");
+    cout << "manager class detail" << endl;
+    mgr.display();
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
