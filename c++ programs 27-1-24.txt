@@ -1,0 +1,625 @@
+1) constructor
+
+#include<iostream>
+using namespace std;
+
+class Person
+{
+	string name;
+	int age;
+	
+	public:
+        	Person(string name,int age)
+        	{
+            		this->name = name;
+            		this->age = age;
+            		cout<<"Parameterise constructor called"<<endl;
+        	}
+
+		void setName(string name)
+		{
+			this->name = name;
+		}
+
+		void setAge(int age)
+		{
+			this->age = age;
+		}
+
+        	void display()
+        	{
+            		cout<<"Name : "<<name<<" Age : "<<age<<endl;
+        	}
+};
+
+int main()
+{
+	
+    Person p2("lucky",22);
+		
+        p2.setName("munilakshmi");
+	p2.setAge(22);
+        p2.display();;
+
+	return 0;
+}
+
+
+
+2) destructor  
+
+#include<iostream>
+using namespace std;
+
+class Person
+{
+	string name;
+	int age;
+	
+	public:
+		Person()
+		{
+			this->name="Sandeep";	
+			cout<<"default Constructor called"<<endl;	
+		}
+        Person(string name,int age)
+        {
+            this->name = name;
+            this->age = age;
+            cout<<"Parameterise constructor called"<<endl;
+        }
+		void setName(string name)
+		{
+			this->name = name;
+		}
+
+		void setAge(int age)
+		{
+			this->age = age;
+		}
+
+        void display()
+        {
+            cout<<"Name : "<<name<<" Age : "<<age<<endl;
+        }
+
+        ~Person()
+        {
+            cout<<"Destructor called "<<endl;
+        }
+};
+
+int main()
+{
+	Person p; //Default constructor called 
+	
+	p.setName("loki");
+	p.setAge(20);
+
+    Person p2("Azeem",22); // Parameterize constructor called 
+		
+        p2.setName("Snehith");
+        p2.display();
+
+        cout<<"After copy data "<<endl;
+
+    Person p3(p2); //Called copy constructor called
+        p3.display();
+
+    Person p4;
+    cout<<"Assignment operator called"<<endl;
+    p4 = p2; // assignment operator
+    p4.display();
+		return 0;
+}
+
+3) inheritance 
+
+#include<iostream>
+using namespace std;
+
+class Person
+{
+    private:
+    string name;
+    int age;
+    string gender;
+    string contact;
+    string dob;
+    public:
+        Person(string name,int age,string gender,string contact,string dob)
+        {
+             this->name = name;
+            this->age = age;
+            this->gender = gender;
+            this->contact = contact;
+             this->dob = dob;
+         }
+
+        void setName(string name)
+        {
+            this->name = name;
+        }
+
+         void setAge(int age)
+        {
+            this->age = age;
+        }
+         void setGender(string gender)
+        {
+            this->gender = gender;
+        }
+         void setContact(string contact)
+        {
+            this->contact = contact;
+        }
+         void setDOB(string dob)
+        {
+            this->dob = dob;
+        }
+        void display()
+        {
+            cout<<"Name "<<name<<" Age "<<age<<" Gender "<<gender<<endl;
+        }
+};
+
+//class name : access_specifier base_name
+class Student : public Person
+{
+    private:
+    int roll;
+    float fees;
+    float marks;
+    string course;
+
+    public:
+        Student(int roll,float fees,float marks,string course)
+        {
+            this->roll = roll;
+            this->fees = fees;
+             this->marks = marks;
+            this->course = course;
+       }
+
+         void setRoll(int roll)
+        {
+            this->roll = roll;
+        }
+
+        void setFees(float fees)
+        {
+            this->fees = fees;
+        }
+
+        void show()
+        {
+            cout<<"Roll number : "<<roll<<" Fees "<<fees<<endl;
+        }
+};
+
+
+int main()
+{
+    Student st;
+    st.setName("Sunil");
+    st.setAge(23);
+    st.setGender("Male");
+    st.setContact("+911233444");
+    st.setDOB("10/10/2002");
+
+    st.display();
+    st.show();
+
+}
+
+4) friend function
+
+class Person
+{
+	string name;
+	
+	public:
+		Person(string name):name(name){}
+
+		void display()
+		{
+			cout<<"Name is : "<<name<<endl;
+		}
+
+		friend void show(Person obj);
+};
+
+void show(Person obj)
+{
+	cout<<obj.name<<endl;
+}
+
+int main()
+{
+	Person p("Snehith");
+	
+	show(p);
+
+	return 0;
+}
+
+5) run time ppolymorphism
+
+#include <iostream>
+using namespace std;
+
+class Person
+{               
+                //vptr ,vtable
+	string name;
+	public:
+		Person(string name):name(name){}
+
+		virtual void show()
+		{
+			cout<<"Name is : "<<name<<endl;
+		}
+		
+		virtual void display()
+		{
+		    cout<<"I am display function "<<endl;
+		}
+};
+
+class Student : public Person
+{
+            //vptr,vtable
+	int roll;
+
+	public:
+		Student(int roll,string name):roll(roll),Person(name){}
+
+		void show()
+		{
+			cout<<"Roll number : "<<roll<<endl;
+		}
+		
+		void display()
+		{
+		    cout<<"I am display function in derived "<<endl;
+		}
+};
+
+int main()
+{
+    
+	Person* p = new Student(10,"Munilaxmi");
+	p->show();
+	p->display();
+		
+	return 0;
+}
+
+6) abstract class
+
+#include <iostream>
+using namespace std;
+
+class Test
+{
+	public:
+	      virtual void display() = 0;
+
+};
+
+class Student : public Test
+{
+
+	public:
+		
+		void show()
+		{
+			cout<<"I am show function"<<endl;
+		}
+		
+		void display()
+		{
+			cout<<"I am Student class"<<endl;
+		}
+};
+
+int main()
+{
+	Test *t = new Student();
+	t->display();
+	//t->show(); //error ‘class Test’ has no member named ‘show’
+	
+	delete t;
+	return 0;
+
+}
+
+7) virtual destructor
+
+#include <iostream>
+using namespace std;
+
+class Person
+{
+
+	public:
+		Person()
+		{
+			cout<<"Default constructor called"<<endl;
+		}
+		
+		virtual void display()
+		{
+			cout<<"I am display function"<<endl;
+		}
+
+		virtual ~Person()
+		{
+			
+			cout<<"Destructor called"<<endl;
+		}
+};
+
+class Student : public Person
+{
+
+	public:
+
+		Student()
+		{
+			cout<<"Default constructor called of derived "<<endl;
+		}
+		
+		virtual void display()
+		{
+			cout<<"I am display function of derived class "<<endl;
+		}
+
+		~Student()
+		{
+			
+			cout<<"Destructor called of derived class"<<endl;
+		}
+
+};
+
+int main()
+{
+
+	Person *pr = new Student();
+		pr->display();
+		
+	delete pr;
+
+	return 0;
+}
+
+8) find maximum element
+
+#include <iostream>
+using namespace std;
+
+int findMax(int* arr, int size) {
+    int* maxElement = arr;
+
+    for (int i = 1; i < size; i++) {
+        if (*(arr + i) > *maxElement) {
+            maxElement = arr + i;
+        }
+    }
+
+    return *maxElement;
+}
+
+int main() {
+    int arr[] = {10, 20, 5, 30, 15};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Maximum element in the array: " << findMax(arr, size) << endl;
+
+    return 0;
+}
+
+9) polymorphism-function overloading
+
+#include <iostream>
+using namespace std;
+
+class Calculator {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+};
+
+int main() {
+    Calculator calc;
+    cout << "Addition of two integers: " << calc.add(10, 20) << endl;
+    cout << "Addition of two doubles: " << calc.add(1.5, 2.5) << endl;
+    cout << "Addition of three integers: " << calc.add(5, 10, 15) << endl;
+
+    return 0;
+}
+
+10) overriding
+
+#include <iostream>
+using namespace std;
+
+class Base {
+public:
+    virtual void show() { // Virtual function
+        cout << "Base class show() function." << endl;
+    }
+};
+
+class Derived : public Base {
+public:
+    void show() override { // Overridden function
+        cout << "Derived class show() function." << endl;
+    }
+};
+
+int main() {
+    Base* basePtr;
+    Derived derivedObj;
+
+    basePtr = &derivedObj;
+    basePtr->show(); // Calls Derived's show() because of virtual function
+
+    return 0;
+}
+
+11) abstraction 
+
+#include <iostream>
+using namespace std;
+
+class Shape {
+public:
+    virtual void draw() = 0; // Pure virtual function
+};
+
+class Circle : public Shape {
+public:
+    void draw() override {
+        cout << "Drawing a Circle." << endl;
+    }
+};
+
+class Rectangle : public Shape {
+public:
+    void draw() override {
+        cout << "Drawing a Rectangle." << endl;
+    }
+};
+
+int main() {
+    Shape* shape;
+
+    Circle circle;
+    shape = &circle;
+    shape->draw();
+
+    Rectangle rectangle;
+    shape = &rectangle;
+    shape->draw();
+
+    return 0;
+}
+
+12) vectors
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> nums;
+
+    // Adding elements
+    nums.push_back(10);
+    nums.push_back(20);
+    nums.push_back(30);
+
+    // Iterating using a loop
+    cout << "Vector elements: ";
+    for (int num : nums) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    // Accessing and modifying elements
+    nums[1] = 25;
+    cout << "Modified Vector: ";
+    for (int i = 0; i < nums.size(); i++) {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
+
+    // Removing the last element
+    nums.pop_back();
+    cout << "After pop_back: ";
+    for (int num : nums) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+13) stack 
+
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+    stack<int> s;
+
+    // Push elements onto the stack
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    // Access and pop elements
+    while (!s.empty()) {
+        cout << "Top element: " << s.top() << endl;
+        s.pop();
+    }
+
+    return 0;
+}
+
+14) queue
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+int main() {
+    queue<string> q;
+
+    // Adding elements to the queue
+    q.push("Alice");
+    q.push("Bob");
+    q.push("Charlie");
+
+    // Access and remove elements
+    while (!q.empty()) {
+        cout << "Front element: " << q.front() << endl;
+        q.pop();
+    }
+
+    return 0;
+}
+
+15) pair
+
+#include <iostream>
+#include <utility>
+using namespace std;
+
+int main() {
+    pair<string, int> person;
+
+    // Assign values to the pair
+    person.first = "Alice";
+    person.second = 25;
+
+    cout << "Name: " << person.first << ", Age: " << person.second << endl;
+
+    return 0;
+}
+
+
+
+
+
