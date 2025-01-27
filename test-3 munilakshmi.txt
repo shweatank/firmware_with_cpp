@@ -1,0 +1,75 @@
+#include <iostream>
+#include <vector>
+#include <memory>
+#include <cmath>  
+using namespace std;
+
+// Base class
+class Shape {
+public:
+    virtual double calculateArea() const = 0; // Pure virtual function
+    virtual ~Shape() = default; // Virtual destructor
+};
+
+// Derived class for Circle
+class Circle : public Shape {
+private:
+    double radius;
+
+public:
+    explicit Circle(double r) : radius(r) {}
+
+    double calculateArea() const override {
+        return M_PI * radius * radius;
+    }
+};
+
+// Derived class for Rectangle
+class Rectangle : public Shape {
+private:
+    double length, breadth;
+
+public:
+    Rectangle(double l, double b) : length(l), breadth(b) {}
+
+    double calculateArea() const override {
+        return length * breadth;
+    }
+};
+
+// Derived class for Triangle
+class Triangle : public Shape {
+private:
+    double base, height;
+
+public:
+    Triangle(double b, double h) : base(b), height(h) {}
+
+    double calculateArea() const override {
+        return 0.5 * base * height;
+    }
+};
+
+// Function to display area of a shape
+void displayArea(const Shape* shape) {
+    if (shape) {
+        cout << "Area: " << shape->calculateArea() <<endl;
+    }
+}
+
+int main() {
+    // Create an array of pointers to Shape
+    vector<unique_ptr<Shape>> shapes;
+
+    // Add different shapes to the array
+    shapes.push_back(make_unique<Circle>(5.0));       // Circle with radius 5
+    shapes.push_back(make_unique<Rectangle>(4.0, 6.0)); // Rectangle with length 4 and breadth 6
+    shapes.push_back(make_unique<Triangle>(3.0, 7.0));  // Triangle with base 3 and height 7
+
+    // Display area of each shape
+    for (const auto& shape : shapes) {
+        displayArea(shape.get());
+    }
+
+    return 0;
+}
