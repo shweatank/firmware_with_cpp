@@ -1,0 +1,150 @@
+Question 2:
+#include<iostream>
+#include<vector>
+using namespace std;
+class Employee
+{
+    public:
+        virtual double calculateSalary() = 0;
+};
+class PermanentEmployee: public Employee
+{
+    private:
+        double base, bonus;
+    public:
+        PermanentEmployee(double base, double bonus)
+        {
+            this->base = base;
+            this->bonus = bonus;
+        }
+        double calculateSalary()
+        {
+            return base + bonus;
+        }
+};
+class ContractualEmployee: public Employee
+{
+    private:
+        double hourlyrate, hoursworked;
+    public:
+        ContractualEmployee(double hourlyrate, double hoursworked)
+        {
+            this->hourlyrate = hourlyrate;
+            this->hoursworked = hoursworked;
+        }
+        double calculateSalary()
+        {
+            return hourlyrate*hoursworked;
+        }
+};
+int main()
+{
+    vector<Employee*> e1;
+    Employee* emp1 = new PermanentEmployee(50000, 2000);
+    e1.push_back(emp1);
+    Employee* emp2 = new ContractualEmployee(700, 300);
+    e1.push_back(emp2);
+    for(int i =0; i<2; i++)
+    {
+        cout<<e1[i]->calculateSalary()<<endl;
+    }
+    return 0;
+}
+
+Question 4:
+#include<iostream>
+#include<vector>
+using namespace std;
+class Vehicle
+{
+    public:
+        virtual void service() = 0;
+};
+class Car: public Vehicle
+{
+    public:
+        void service()
+        {
+            cout<<"Servicing Car"<<endl;
+        }
+};
+class Bike: public Vehicle
+{
+    public:
+        void service()
+        {
+            cout<<"Servicing Bike"<<endl;
+        }
+};
+class Truck: public Vehicle
+{
+    public:
+        void service()
+        {
+            cout<<"Servicing Truck"<<endl;
+        }
+};
+int main()
+{
+    vector<Vehicle*> veh;
+    Vehicle* v1 = new Car;
+    Vehicle* v2 = new Bike;
+    Vehicle* v3 = new Truck;
+    veh.push_back(v1);
+    veh.push_back(v2);
+    veh.push_back(v3);
+    for(int i =0; i<3; i++)
+    {
+        veh[i]->service();
+    }
+    return 0;
+}
+
+Question 6:
+#include<iostream>
+#include<vector>
+using namespace std;
+class Animal
+{
+    public:
+        virtual void makeSound() = 0;
+};
+class Dog: public Animal
+{
+    public:
+        void makeSound()
+        {
+            cout<<"woof"<<endl;
+        }
+};
+class Cat: public Animal
+{
+    public:
+        void makeSound()
+        {
+            cout<<"meow"<<endl;
+        }
+};
+class Cow: public Animal
+{
+    public:
+        void makeSound()
+        {
+            cout<<"moo"<<endl;
+        }
+};
+int main()
+{
+    vector<Animal*> v1;
+    Animal* a1 = new Dog;
+    Animal* a2 = new Cat;
+    Animal* a3 = new Cow;
+    v1.push_back(a1);
+    v1.push_back(a2);
+    v1.push_back(a3);
+    for(int i =0; i<3; i++)
+    {
+        v1[i]->makeSound();
+    }
+    return 0;
+}
