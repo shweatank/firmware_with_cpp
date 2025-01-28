@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+
+// Base class
+class Vehicle {
+public:
+    virtual void service() const = 0; 
+    virtual ~Vehicle() {} 
+};
+
+
+class Car : public Vehicle {
+public:
+    void service() const override {
+        cout << "Servicing Car" << endl;
+    }
+};
+
+
+class Bike : public Vehicle {
+public:
+    void service() const override {
+        cout << "Servicing Bike" << endl;
+    }
+};
+
+
+class Truck : public Vehicle {
+public:
+    void service() const override {
+        cout << "Servicing Truck" << endl;
+    }
+};
+
+int main() {
+    
+    Vehicle* serviceCenter[3];
+
+    
+    Car car;
+    Bike bike;
+    Truck truck;
+
+    
+    serviceCenter[0] = &car;
+    serviceCenter[1] = &bike;
+    serviceCenter[2] = &truck;
+
+    
+    for (int i = 0; i < 3; ++i) {
+        serviceCenter[i]->service();
+    }
+
+    return 0;
+}
