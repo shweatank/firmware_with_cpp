@@ -60,8 +60,8 @@ all: main-build
 main-build: usart_log.elf secondary-outputs
 
 # Tool invocations
-usart_log.elf usart_log.map: $(OBJS) $(USER_OBJS) C:\Users\Admin\Desktop\stmmicro\usart_log\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "usart_log.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Admin\Desktop\stmmicro\usart_log\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="usart_log.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+usart_log.elf usart_log.map: $(OBJS) $(USER_OBJS) C:\Users\Admin\Desktop\Firware_Training\usart_log\STM32F429ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "usart_log.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Admin\Desktop\Firware_Training\usart_log\STM32F429ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="usart_log.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

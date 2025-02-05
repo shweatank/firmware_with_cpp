@@ -43,20 +43,18 @@
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
 
-/* Definitions for blin_kled */
+/* Definitions for blinkled */
 osThreadId_t blinkledHandle;
 const osThreadAttr_t blinkled_attributes = {
-  .name = "blink_led",
+  .name = "blinkled",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-
-/* Definitions for Blin_kled */
+/* Definitions for Blinkled */
 osMessageQueueId_t BlinkledHandle;
 const osMessageQueueAttr_t Blinkled_attributes = {
-  .name = "Blink_led"
+  .name = "Blinkled"
 };
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -82,6 +80,7 @@ void StartDefaultTask(void *argument);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -125,15 +124,15 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of Blin_kled */
-  BlinkledHandle = osMessageQueueNew(16, sizeof(uint8_t), &Blinkled_attributes);
+  /* creation of Blinkled */
+  BlinkledHandle = osMessageQueueNew (16, sizeof(uint16_t), &Blinkled_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of blink_led */
+  /* creation of blinkled */
   blinkledHandle = osThreadNew(StartDefaultTask, NULL, &blinkled_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -208,6 +207,14 @@ void SystemClock_Config(void)
   */
 static void MX_USART1_UART_Init(void)
 {
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
   huart1.Init.BaudRate = 115200;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
@@ -220,10 +227,10 @@ static void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
+  /* USER CODE BEGIN USART1_Init 2 */
 
-  // Enable USART1 interrupt in NVIC
-  HAL_NVIC_EnableIRQ(USART1_IRQn);
-  __HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);  // Enable RXNE interrupt
+  /* USER CODE END USART1_Init 2 */
+
 }
 
 /**
@@ -234,19 +241,26 @@ static void MX_USART1_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+/* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
 
-  /* Configure GPIO pin : PG13 (LED Pin) */
-  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13|GPIO_PIN_14, GPIO_PIN_RESET);
-  GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PG13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -277,26 +291,43 @@ void USART1_IRQHandler(void)
 
 /* USER CODE END 4 */
 
+/* USER CODE BEGIN Header_StartDefaultTask */
 /**
-  * @brief  Function implementing the blinkl_ed thread.
+  * @brief  Function implementing the blinkled thread.
   * @param  argument: Not used
   * @retval None
   */
+/* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
-  uint8_t received_char;
-
+  /* USER CODE BEGIN 5 */
   /* Infinite loop */
   for(;;)
   {
-    // Wait for a message from the USART interrupt handler
-    if (osMessageQueueGet(BlinkledHandle, &received_char, NULL, osWaitForever) == osOK)
-    {
-      // Blink LED on PG13 based on received data (example behavior)
-      HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13|GPIO_PIN_14);  // Toggle LED
-      osDelay(500);  // Delay for half a second
-    }
+    osDelay(1);
   }
+  /* USER CODE END 5 */
+}
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM1 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM1) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 }
 
 /**
